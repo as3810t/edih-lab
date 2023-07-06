@@ -1,5 +1,8 @@
 package hu.bme.mit.spaceship;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
 * A simple spaceship with two proton torpedo stores and four lasers
 */
@@ -10,13 +13,29 @@ public class GT4500 implements SpaceShip {
 
   private boolean wasPrimaryFiredLast = false;
 
+  private List<LaserGun> laserGuns;
+  private int currentLaserIndex = 0;
+
   public GT4500() {
     this.primaryTorpedoStore = new TorpedoStore(10);
     this.secondaryTorpedoStore = new TorpedoStore(10);
+
+    this.laserGuns = new ArrayList<>();
+    for(int i = 0; i < 10; i++) {
+      this.laserGuns.add(new LaserGun());
+    }
   }
 
   public boolean fireLaser(FiringMode firingMode) {
-    // TODO not implemented yet
+    switch (firingMode) {
+      case SINGLE:
+        return laserGuns.get(currentLaserIndex++).fire();
+      case ALL:
+        for(var laserGun : laserGuns) {
+          laserGun.fire();
+        }
+        return true;
+    }
     return false;
   }
 
