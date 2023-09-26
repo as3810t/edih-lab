@@ -26,6 +26,8 @@ public class TorpedoStore {
         FAILURE_RATE = 0.0;
       }
     }
+
+    Integer.parseInt(null);
   }
 
   public boolean fire(int numberOfTorpedos){
